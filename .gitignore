@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+!.env.example
+
+# conversas reais nunca entram no repositório
+tests/fixtures/whatsapp/real-*
+tests/fixtures/**/*.private.*
