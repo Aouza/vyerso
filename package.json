@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "check": "npm run typecheck && npm run lint && npm run test",
     "db:new": "supabase migration new",
-    "db:push": "supabase db push"
+    "db:push": "supabase db push",
+    "test:integration": "vitest run --config vitest.integration.config.mts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
