@@ -93,4 +93,20 @@ Do not introduce extended planning workflows for:
 
 Prefer the smallest workflow appropriate to the task.
 
+## Output discipline
+
+Be concise in terminal responses.
+
+- Do not narrate routine edits.
+- Do not print file contents or diffs unless explicitly requested.
+- Do not repeat tool output that is already visible.
+- Do not provide long implementation summaries.
+- After completing a task, report only:
+  1. what was completed;
+  2. important decisions or deviations;
+  3. validation status;
+  4. blockers or decisions required from the user.
+- Keep completion summaries under 10 lines unless more detail is explicitly requested.
+- If there are no blockers, stop after the summary.
+
 @AGENTS.md
