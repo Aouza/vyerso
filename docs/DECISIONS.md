@@ -121,5 +121,5 @@ O sistema deve permitir análise assíncrona, mas queue/job runner ainda não fo
 - Gerenciador de pacotes: **npm**.
 - Dependências do Foundation: `zod`, `vitest`, `prettier`, `@supabase/supabase-js`, `@supabase/ssr`, `server-only`. `@types/node` fixado em `^24` por exigência de peer do Vitest.
 - `src/domain/**` não pode importar React, Next, Supabase, `infrastructure`, `features`, `components`, `app` ou `application`. Aplicado por `no-restricted-imports` no ESLint.
-- Env validada com Zod em `src/lib/env.ts`; `SUPABASE_SERVICE_ROLE_KEY` só é lido em `src/lib/env.server.ts` (`server-only`).
+- Env validada com Zod em `src/lib/env.ts`; `SUPABASE_SECRET_KEY (`sb_secret_…`, substitui o service role legado)` só é lido em `src/lib/env.server.ts` (`server-only`).
 - Fixtures de conversa real são ignoradas pelo git (`tests/fixtures/whatsapp/real-*`).

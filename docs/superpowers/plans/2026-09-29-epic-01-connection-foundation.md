@@ -1,4 +1,4 @@
-﻿# EPIC 01 â€” Connection Foundation Implementation Plan
+# EPIC 01 â€” Connection Foundation Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -50,7 +50,7 @@ Entradas/condiÃ§Ãµes que o spec nÃ£o cita e que mais provavelmente quebram
 
 ## PrÃ©-requisitos (bloqueiam a Task 1)
 
-- [ ] **P1.** `.env.local` **nÃ£o existe** neste diretÃ³rio (sÃ³ `.env.example`). Criar com `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` do projeto DEV (ou informar onde estÃ¡).
+- [ ] **P1.** `.env.local` **nÃ£o existe** neste diretÃ³rio (sÃ³ `.env.example`). Criar com `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY` do projeto DEV (ou informar onde estÃ¡).
 - [ ] **P2.** Docker **nÃ£o estÃ¡ instalado** â†’ sem Supabase local. Plano usa o projeto DEV remoto (D2).
 - [ ] **P3.** Para `db push`: ref do projeto DEV, senha do banco e login do CLI (`! npx supabase login`, interativo, feito pelo usuÃ¡rio).
 - [ ] **P4.** No dashboard DEV, o usuÃ¡rio configura: Auth â†’ Email habilitado; URL Configuration: Site URL `http://localhost:3000`, Redirect URL `http://localhost:3000/**`; template "Magic Link" com link `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email`.
@@ -150,8 +150,8 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
 
 const url = () => process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const anon = () => process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const service = () => process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const anon = () => process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+const service = () => process.env.SUPABASE_SECRET_KEY!;
 const opts = { auth: { persistSession: false, autoRefreshToken: false } };
 
 export const adminClient = () => createClient(url(), service(), opts);

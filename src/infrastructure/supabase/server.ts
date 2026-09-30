@@ -3,13 +3,13 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { getPublicEnv } from "@/lib/env";
 
-/** Cliente do usuário logado (anon key + cookies): respeita RLS. */
+/** Cliente do usuário logado (publishable key + cookies): respeita RLS. */
 export async function createSupabaseServerClient() {
   const env = getPublicEnv();
   const cookieStore = await cookies();
   return createServerClient(
     env.NEXT_PUBLIC_SUPABASE_URL,
-    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     {
       cookies: {
         getAll: () => cookieStore.getAll(),
