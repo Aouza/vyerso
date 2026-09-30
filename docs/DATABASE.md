@@ -567,3 +567,5 @@ Fora do EPIC 01: participants, imports, Storage, analyses, resultados, excerpts,
   - **DB-Q6:** sem `profiles` no MVP.
   - **Novo requisito de segurança:** paywall não pode existir só na UI (§9.1, R6).
   - `evidence.message_ref` removido; `kind` passou de `message_ref` para `message_sample`.
+
+- **0.3 (EPIC 01)** — M1 `connections` implementada; ver ADR-013/016/017. DB-Q7 resolvido de forma pragmática (integração contra DEV, ADR-016).
