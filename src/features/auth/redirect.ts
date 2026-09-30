@@ -1,3 +1,17 @@
+/**
+ * O link padrão do Supabase (PKCE) pousa em `/?code=...` (Site URL). Encaminha o code
+ * para a rota que troca por sessão. Nenhum outro parâmetro é repassado.
+ */
+export function resolveAuthLanding(
+  pathname: string,
+  search: string,
+): string | null {
+  if (pathname !== "/") return null;
+  const code = new URLSearchParams(search).get("code");
+  if (!code) return null;
+  return `/auth/confirm?code=${encodeURIComponent(code)}`;
+}
+
 export type Gate = "allow" | "redirect-login" | "redirect-app";
 
 const PROTECTED_PREFIXES = ["/connections"];

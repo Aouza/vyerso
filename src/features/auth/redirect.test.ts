@@ -1,5 +1,23 @@
 import { describe, expect, it } from "vitest";
-import { resolveGate } from "./redirect";
+import { resolveAuthLanding, resolveGate } from "./redirect";
+
+describe("resolveAuthLanding", () => {
+  it("manda /?code=... para a troca de sessão", () => {
+    expect(resolveAuthLanding("/", "?code=abc")).toBe("/auth/confirm?code=abc");
+  });
+
+  it("codifica o code", () => {
+    expect(resolveAuthLanding("/", "?code=a b&x=1")).toBe(
+      "/auth/confirm?code=a%20b",
+    );
+  });
+
+  it("ignora a home sem code e outras rotas", () => {
+    expect(resolveAuthLanding("/", "")).toBeNull();
+    expect(resolveAuthLanding("/", "?code=")).toBeNull();
+    expect(resolveAuthLanding("/login", "?code=abc")).toBeNull();
+  });
+});
 
 describe("resolveGate", () => {
   it("bloqueia rotas protegidas sem sessão", () => {

@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createSupabaseServerClient } from "@/infrastructure/supabase/server";
@@ -29,10 +30,16 @@ export async function signInWithEmail(
     return { status: "error", message: "Informe um e-mail válido." };
   }
 
+  const origin = (await headers()).get("origin");
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.signInWithOtp({
     email: parsed.data,
-    options: { shouldCreateUser: true },
+    options: {
+      shouldCreateUser: true,
+      // Precisa estar na lista de Redirect URLs do Supabase; se não estiver,
+      // o link cai no Site URL e o proxy encaminha /?code= para /auth/confirm.
+      ...(origin ? { emailRedirectTo: `${origin}/auth/confirm` } : {}),
+    },
   });
   if (error) {
     return {

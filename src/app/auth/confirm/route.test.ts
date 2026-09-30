@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const verifyOtp = vi.fn();
-const createClient = vi.fn(async () => ({ auth: { verifyOtp } }));
+const exchangeCodeForSession = vi.fn();
+const createClient = vi.fn(async () => ({
+  auth: { verifyOtp, exchangeCodeForSession },
+}));
 
 vi.mock("@/infrastructure/supabase/server", () => ({
   createSupabaseServerClient: () => createClient(),
@@ -16,7 +19,31 @@ const location = (res: Response) => new URL(res.headers.get("location")!);
 
 beforeEach(() => {
   verifyOtp.mockReset();
+  exchangeCodeForSession.mockReset();
   createClient.mockClear();
+});
+
+describe("GET /auth/confirm com code (PKCE)", () => {
+  it("troca o code por sessão e vai para /connections", async () => {
+    exchangeCodeForSession.mockResolvedValue({ error: null });
+    const res = await call("?code=abc");
+    expect(exchangeCodeForSession).toHaveBeenCalledWith("abc");
+    expect(location(res).pathname).toBe("/connections");
+  });
+
+  it("code inválido ou expirado volta ao login", async () => {
+    exchangeCodeForSession.mockResolvedValue({ error: { message: "bad" } });
+    const res = await call("?code=abc");
+    expect(location(res).pathname).toBe("/login");
+    expect(location(res).search).toBe("?erro=link");
+  });
+
+  it("ignora next no fluxo com code (sem open redirect)", async () => {
+    exchangeCodeForSession.mockResolvedValue({ error: null });
+    const res = await call("?code=abc&next=https://evil.example");
+    expect(location(res).origin).toBe("http://localhost:3000");
+    expect(location(res).pathname).toBe("/connections");
+  });
 });
 
 describe("GET /auth/confirm", () => {
