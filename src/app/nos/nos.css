@@ -1,0 +1,241 @@
+/*
+ * Movimento da landing /nos. Cada animação tem um significado fixo (ver o kit
+ * visual): flutuar = há uma conversa; surgir = algo foi encontrado; traçar =
+ * a história se desenha no tempo; crescer = volume ao longo dos meses;
+ * percorrer = o arquivo passa de etapa; digitando = uma resposta que se espera.
+ * Sem JavaScript. Quem prefere menos movimento vê tudo parado.
+ */
+.nos-anim {
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.nos-float {
+  animation-name: nos-float;
+  animation-duration: 5s;
+}
+.nos-pop {
+  animation-name: nos-pop;
+  animation-duration: 6s;
+}
+.nos-in {
+  animation-name: nos-in;
+  animation-duration: 8s;
+}
+.nos-slide {
+  animation-name: nos-slide;
+  animation-duration: 6s;
+}
+.nos-drop {
+  animation-name: nos-drop;
+  animation-duration: 6s;
+}
+.nos-draw {
+  animation-name: nos-draw;
+  animation-duration: 6s;
+  stroke-dasharray: 100;
+}
+.nos-band {
+  animation-name: nos-band;
+  animation-duration: 6s;
+}
+.nos-grow {
+  animation-name: nos-grow;
+  animation-duration: 7s;
+  transform-origin: 50% 100%;
+}
+.nos-travel {
+  animation-name: nos-travel;
+  animation-duration: 7s;
+}
+.nos-late {
+  animation-name: nos-late;
+  animation-duration: 7s;
+}
+.nos-type {
+  animation-name: nos-type;
+  animation-duration: 1.2s;
+}
+.nos-ring {
+  animation-name: nos-ring;
+  animation-duration: 2.4s;
+  animation-timing-function: ease-out;
+}
+
+@keyframes nos-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes nos-pop {
+  0%,
+  8% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  20%,
+  85% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  95%,
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+@keyframes nos-in {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  8%,
+  86% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  96%,
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+@keyframes nos-slide {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translate(-46px, -10px) scale(0.7);
+  }
+  26%,
+  84% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  96%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1);
+  }
+}
+@keyframes nos-drop {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translateY(-22px);
+  }
+  24%,
+  70% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  86%,
+  100% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes nos-draw {
+  0%,
+  10% {
+    stroke-dashoffset: 100;
+  }
+  55%,
+  90% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 100;
+  }
+}
+@keyframes nos-band {
+  0%,
+  12% {
+    opacity: 0;
+  }
+  30%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes nos-grow {
+  0%,
+  6% {
+    transform: scaleY(0);
+  }
+  30%,
+  86% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+@keyframes nos-travel {
+  0%,
+  4% {
+    opacity: 0;
+    transform: translateX(0) scale(1);
+  }
+  12% {
+    opacity: 1;
+  }
+  56% {
+    opacity: 1;
+    transform: translateX(var(--nos-travel, 500px)) scale(1);
+  }
+  66%,
+  100% {
+    opacity: 0;
+    transform: translateX(var(--nos-travel, 500px)) scale(1.7);
+  }
+}
+@keyframes nos-late {
+  0%,
+  55% {
+    opacity: 0.25;
+  }
+  66%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@keyframes nos-type {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+@keyframes nos-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nos-anim {
+    animation: none !important;
+  }
+}

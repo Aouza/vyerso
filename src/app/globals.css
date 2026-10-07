@@ -10,6 +10,25 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Landing /nos: duas vozes (Você = laranja, Pessoa = verde-água). */
+  --color-nos-ink: #14171f;
+  --color-nos-muted: #4b5363;
+  --color-nos-soft: #6b7383;
+  --color-nos-faint: #7a8294;
+  --color-nos-warm: #f6f3ee;
+  --color-nos-peach: #fff3ec;
+  --color-nos-peach-bubble: #ffe2d5;
+  --color-nos-peach-avatar: #fbe3d8;
+  --color-nos-teal: #0f6b61;
+  --color-nos-teal-deep: #2f5f59;
+  --color-nos-teal-tint: #e3f2ef;
+  --color-nos-teal-bubble: #dcefeb;
+  --color-nos-orange: #e8552f;
+  --color-nos-orange-deep: #c8401f;
+  --color-nos-coral: #ff8a66;
+  --font-figtree: var(--font-nos-figtree);
+  --font-accent: var(--font-nos-fraunces);
 }
 
 @media (prefers-color-scheme: dark) {
