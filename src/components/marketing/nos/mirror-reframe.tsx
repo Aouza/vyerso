@@ -11,7 +11,7 @@ export function Mirror() {
   return (
     <section
       id="espelho"
-      className="mx-auto max-w-[1160px] px-4 pb-12 md:px-8 md:pb-24"
+      className="mx-auto max-w-[1160px] px-4 pb-9 md:px-8 md:pb-14"
     >
       <div className="flex flex-wrap items-center gap-8 rounded-[28px] bg-nos-ink p-5 py-8 text-white md:gap-12 md:rounded-[40px] md:px-14 md:py-16">
         <div className="flex flex-[1_1_340px] flex-col gap-[18px]">
@@ -55,7 +55,6 @@ export function Reframe() {
       className="mx-auto flex max-w-[1160px] flex-col gap-4 px-4 pb-12 md:gap-10 md:px-8 md:pb-24"
     >
       <div className="flex max-w-[760px] flex-col gap-3 px-1 md:gap-3.5 md:px-0">
-        <Eyebrow>{r.eyebrow}</Eyebrow>
         <SectionTitle>
           {r.titleBefore}
           <Accent>{r.titleAccent}</Accent>

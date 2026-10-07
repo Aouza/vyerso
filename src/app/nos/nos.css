@@ -239,3 +239,22 @@
     animation: none !important;
   }
 }
+
+.nos-bar {
+  animation-name: nos-bar;
+  animation-duration: 7s;
+  transform-origin: 0 50%;
+}
+@keyframes nos-bar {
+  0%,
+  6% {
+    transform: scaleX(0);
+  }
+  40%,
+  92% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}

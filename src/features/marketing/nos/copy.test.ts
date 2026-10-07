@@ -45,8 +45,33 @@ describe("fake door", () => {
   it("todo CTA da página aponta para a tela de interesse", () => {
     expect(INTEREST_PATH).toBe("/nos/interesse");
     expect(nosCopy.hero.cta).toBeTruthy();
-    expect(nosCopy.offer.cta).toBeTruthy();
+    expect(nosCopy.invite.cta).toBeTruthy();
     expect(nosCopy.finalCta.cta).toBeTruthy();
+  });
+
+  it("todos os CTAs principais comunicam a mesma ação", () => {
+    const ctas = [
+      nosCopy.hero.cta,
+      nosCopy.preview.cta,
+      nosCopy.discoveries.cta,
+      nosCopy.invite.cta,
+      nosCopy.finalCta.cta,
+    ];
+    expect(new Set(ctas)).toEqual(new Set(["Quero analisar minha conversa"]));
+  });
+
+  it("não deixa placeholders na página, exceto os já decididos", () => {
+    const { interest, ...sales } = nosCopy;
+    void interest;
+    const placeholders = strings(sales).filter((s) => /\[[^\]]+\]/.test(s));
+    expect(placeholders.sort()).toEqual([
+      "Assim que a análise termina. Se você abandonar o envio, em até [X] dias.",
+      "Você & [Pessoa]",
+    ]);
+  });
+
+  it("a menção ao produto é sempre destacada pelo componente (NosMark)", () => {
+    expect(strings(nosCopy).filter((s) => /Nós/.test(s))).toEqual([]);
   });
 
   it("a página de vendas não pede e-mail", () => {

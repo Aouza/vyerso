@@ -108,7 +108,7 @@ function FindingCard() {
         <p className="m-0 text-xs text-nos-soft">{k.findingLabel}</p>
         <p className="m-0 text-[21px] font-bold leading-[1.14] tracking-[-0.03em] md:text-[26px]">
           {k.findingBefore}
-          <Accent>{k.findingAccent}</Accent>
+          <Accent className="text-nos-orange-deep">{k.findingAccent}</Accent>
           {k.findingAfter}
         </p>
         <p className="m-0 text-[13px] text-nos-muted">{k.periods}</p>
@@ -177,7 +177,8 @@ export function Hero({ variant = "controle" }: { variant?: HeadlineVariant }) {
             {c.eyebrow}
           </p>
           <h1 className="m-0 text-[46px] font-bold leading-none tracking-[-0.04em] md:text-[72px]">
-            {h.lead} <Accent>{h.accent}</Accent>
+            {h.lead}{" "}
+            <Accent className="text-nos-orange-deep">{h.accent}</Accent>
           </h1>
           <p className="m-0 max-w-[500px] text-lg md:text-xl">{c.lead}</p>
           <p className="m-0 max-w-[500px] text-base text-nos-muted md:text-lg">

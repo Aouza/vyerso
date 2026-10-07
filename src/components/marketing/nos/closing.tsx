@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  HEADLINES,
-  INTEREST_PATH,
-  nosCopy,
-  type HeadlineVariant,
-} from "@/features/marketing/nos/copy";
+import { INTEREST_PATH, nosCopy } from "@/features/marketing/nos/copy";
 import {
   Accent,
   CheckCircleIcon,
@@ -14,11 +9,11 @@ import {
 } from "./primitives";
 
 const o = nosCopy.objections;
-const f = nosCopy.offer;
+const iv = nosCopy.invite;
 const fc = nosCopy.finalCta;
 const ft = nosCopy.footer;
 
-/** Seção 10: objeções de compra, não um FAQ decorativo. */
+/** Seção 11: objeções reais, não um FAQ decorativo. */
 export function Objections() {
   return (
     <section
@@ -36,11 +31,7 @@ export function Objections() {
             className="rounded-[20px] bg-white px-5 py-[18px] md:rounded-[22px] md:px-7 md:py-6"
           >
             <h3 className="m-0 text-[17px] font-bold md:text-[19px]">{it.q}</h3>
-            <p
-              className={`m-0 mt-1.5 text-[15px] md:mt-2 md:text-base ${
-                "placeholder" in it ? "text-nos-faint" : "text-nos-muted"
-              }`}
-            >
+            <p className="m-0 mt-1.5 text-[15px] text-nos-muted md:mt-2 md:text-base">
               {"a" in it ? (
                 it.a
               ) : (
@@ -58,48 +49,44 @@ export function Objections() {
   );
 }
 
-/** Seção 11: oferta, sem preço (LANDING_BRIEF §6). O CTA leva à tela de interesse. */
-export function Offer() {
+/** Seção 10: convite à descoberta. Sem preço: a fake door mede interesse em experimentar. */
+export function Invite() {
   return (
     <section
       id="oferta"
       className="mx-auto max-w-[1160px] px-4 pb-12 md:px-8 md:pb-24"
     >
-      <div className="flex flex-wrap items-center gap-8 rounded-[28px] bg-white px-[18px] py-[26px] shadow-[0_24px_60px_rgba(20,23,31,0.08)] md:gap-12 md:rounded-[36px] md:p-[52px]">
+      <div className="flex flex-wrap items-center gap-6 rounded-[28px] bg-white px-[18px] py-[26px] shadow-[0_18px_44px_rgba(20,23,31,0.08)] md:gap-12 md:rounded-[40px] md:p-14">
         <div className="flex flex-[1_1_340px] flex-col gap-4 md:gap-[18px]">
-          <Eyebrow>{f.eyebrow}</Eyebrow>
+          <Eyebrow>{iv.eyebrow}</Eyebrow>
           <h2 className="m-0 text-[30px] font-bold leading-[1.06] tracking-[-0.035em] md:text-[46px] md:leading-[1.04]">
-            {f.titleBefore}
-            <Accent>{f.titleAccent}</Accent>
+            {iv.titleBefore}
+            <NosMark /> <Accent>{iv.titleAccent}</Accent>
           </h2>
-          <p className="m-0 text-[15px] text-nos-muted md:text-lg">{f.body}</p>
-        </div>
-        <div className="flex flex-[1_1_340px] flex-col gap-3 rounded-[22px] bg-nos-warm p-5 md:gap-[18px] md:rounded-[28px] md:p-8">
-          <p className="m-0 text-xl font-bold md:text-[22px] md:tracking-[-0.02em]">
-            <NosMark />
-            {f.planSuffix}
-          </p>
-          <div className="flex flex-col gap-3">
-            {f.items.map((t) => (
-              <div
-                key={t}
-                className="flex items-center gap-2.5 text-[15px] md:items-start md:gap-3 md:text-base"
-              >
-                <CheckCircleIcon className="text-nos-teal md:mt-0.5" />
-                <span>{t}</span>
-              </div>
-            ))}
-            <div className="text-sm text-nos-faint md:text-base">
-              {f.pendingItems}
-            </div>
-          </div>
-          <p className="m-0 text-sm text-nos-soft md:text-[15px]">{f.note}</p>
+          <p className="m-0 text-[15px] text-nos-muted md:text-lg">{iv.body}</p>
           <CtaLink
             href={INTEREST_PATH}
             className="justify-between self-stretch md:self-start"
           >
-            {f.cta}
+            {iv.cta}
           </CtaLink>
+        </div>
+        <div className="flex flex-[1_1_340px] flex-col gap-3 rounded-[22px] bg-nos-warm p-5 md:gap-3.5 md:rounded-[28px] md:p-8">
+          <p className="m-0 text-lg font-bold md:text-xl md:tracking-[-0.02em]">
+            {iv.listTitle}
+          </p>
+          {iv.items.map((t) => (
+            <div
+              key={t}
+              className="flex items-start gap-2.5 text-[15px] md:gap-3 md:text-base"
+            >
+              <CheckCircleIcon className="text-nos-teal md:mt-0.5" />
+              <span>{t}</span>
+            </div>
+          ))}
+          <p className="m-0 mt-0.5 text-[13px] text-nos-soft md:mt-1.5 md:text-sm">
+            {iv.note}
+          </p>
         </div>
       </div>
     </section>
@@ -107,12 +94,7 @@ export function Offer() {
 }
 
 /** Seção 12: fecha o loop aberto no hero. */
-export function FinalCta({
-  variant = "controle",
-}: {
-  variant?: HeadlineVariant;
-}) {
-  const h = HEADLINES[variant];
+export function FinalCta() {
   return (
     <section
       id="fim"
@@ -125,8 +107,9 @@ export function FinalCta({
             "radial-gradient(60% 80% at 80% 0%, rgba(255,138,102,0.35), transparent), radial-gradient(50% 70% at 10% 100%, rgba(110,197,184,0.35), transparent), #fff",
         }}
       >
-        <h2 className="m-0 max-w-[720px] text-[32px] font-bold leading-[1.06] tracking-[-0.035em] md:text-[50px] md:leading-[1.04]">
-          {h.lead} <Accent>{h.accent}</Accent>
+        <h2 className="m-0 max-w-[760px] text-[32px] font-bold leading-[1.06] tracking-[-0.035em] md:text-[50px] md:leading-[1.04]">
+          {fc.titleBefore}
+          <Accent className="text-nos-orange-deep">{fc.titleAccent}</Accent>
         </h2>
         <p className="m-0 max-w-[540px] text-[15px] text-nos-muted md:text-lg">
           {fc.body}

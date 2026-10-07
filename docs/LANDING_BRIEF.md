@@ -21,14 +21,22 @@ Validar demanda pelo **Nós** com uma **fake door** (ainda não há importação
 - **Público e canal:** brasileiro, mobile-first, TikTok/Reels.
 
 ## 3. Estrutura da página (referência de design: artifact "Vyerso Landing", versão clara, desktop e mobile)
-1. Hero: eyebrow emocional, título em paralelismo, subtítulo com momentos reconhecíveis, CTA único, microcopy de privacidade, prova social (placeholder), card de relatório inclinado com insight como manchete, e o arco de dados no fundo.
-2. Chips de dúvidas ("Quando começou? Quem passou a iniciar mais? Foi fase ou oscilação?").
-3. Prévia gratuita (formato do Free Reveal, `FREE_REVEAL.md`): prova de processamento, **uma** observação neutra, a contagem de períodos importantes e o restante bloqueado. Não mostra o que mudou, quando, o quanto, por quanto tempo, evidências nem a linha do tempo.
-4. Antes e depois: um ponto de virada, sinais lado a lado, "durou?", "já aconteceu antes?", evidências, e a frase "Agora você tem uma data para lembrar o que estava acontecendo naquela época."
-5. Como funciona (3 passos).
-6. Princípio "Menos julgamento. Mais trajetória." (não dizemos / dizemos).
-7. Privacidade: jornada do arquivo, o que fica e o que nunca fica, controle do usuário.
-8. Lista de espera, FAQ e rodapé com disclaimer ("leitura de trajetória, não veredito; não substitui terapia").
+Versão atual (decisão do dono do produto, 2026-10-07): estrutura **rica**, 12 seções, cada uma com uma missão comercial e uma pergunta nova que aumenta o desejo de ver a própria análise. A fake door mede **interesse em experimentar** (não intenção de compra): o funil real é Free Reveal → paywall, depois da análise. Todo CTA principal diz a mesma coisa: "Quero analisar minha conversa".
+
+1. **Hero:** a dúvida que já existe; prévia ilustrativa ao lado; CTA único.
+2. **Espelho emocional:** situações do cotidiano (iniciativa que diminui, ritmo que muda, hábitos que somem), sem induzir paranoia.
+3. **Paradoxo da mensagem isolada:** o "ok" contra 18 meses de conversa.
+4. **Mecanismo:** linha do tempo ilustrativa com períodos, mudança e continuidade, rotulada como exemplo do relatório completo.
+5. **Demonstração (Free Reveal):** o formato, com dados fictícios: processamento, **uma** descoberta, a contagem de períodos e o restante bloqueado ("o que vem no relatório completo"). Sem prometer que toda conversa terá mudança. Título: "Veja como o Nós transforma conversas em descobertas" (não sugere que a conversa do visitante já foi processada).
+6. **O que você pode descobrir:** cinco perguntas, cada uma com uma microdemonstração própria.
+7. **Por que isso é diferente:** tempo, evidências verificáveis, limites explícitos; contraste com colar mensagens numa IA genérica (sem citar concorrente); não dizemos / dizemos.
+8. **Como funciona:** 3 passos; a prévia gratuita vem antes de qualquer decisão sobre o relatório completo.
+9. **Privacidade em duas camadas:** três garantias e detalhes sob demanda. O que ainda não existe aparece como "será assim".
+10. **Convite à descoberta** (substitui a oferta): o que a pessoa poderá ver, sem preço; "nenhum arquivo precisa ser enviado agora".
+11. **Objeções reais:** histórico longo ou incompleto, sem mudança, veredito, confiabilidade, mensagens guardadas, a outra pessoa, conta, exportação.
+12. **Fechamento:** "Você conhece as mensagens. Talvez ainda não tenha visto a trajetória." e o mesmo CTA.
+
+A página não tem placeholders, exceto `[X] dias` (retenção do envio abandonado, `PRIVACY.md`) e `[Pessoa]` (nome fictício do card). Cada nome do produto é destacado (componente `NosMark`).
 
 Todo dado visual é fictício e rotulado "Exemplo ilustrativo". Os sinais mostrados (iniciativa, tempo de resposta, mensagens por dia, mensagens de madrugada) são **candidatos** do `ANALYTICS_ENGINE.md`, não a lista final.
 

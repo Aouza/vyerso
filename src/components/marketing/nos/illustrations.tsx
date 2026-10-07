@@ -528,3 +528,446 @@ export function PrivacyFlow({
     </svg>
   );
 }
+
+const BAND_TINTS = ["#fff3ec", "#e3f2ef", "#fff3ec", "#e3f2ef"];
+
+/** Seção 4: linha do tempo do relatório completo (exemplo ilustrativo). */
+export function Timeline({
+  alt,
+  periods,
+  changeLabel,
+  start,
+  end,
+}: {
+  alt: string;
+  periods: readonly string[];
+  changeLabel: string;
+  start: string;
+  end: string;
+}) {
+  const desktopBands = [
+    [40, 210],
+    [254, 242],
+    [500, 236],
+    [740, 220],
+  ];
+  const desktopLabels = [145, 375, 618, 850];
+  const mobileBands = [14, 98, 182, 266];
+  return (
+    <>
+      <svg
+        viewBox="0 0 1000 340"
+        width="100%"
+        className="hidden md:block"
+        role="img"
+        aria-label={alt}
+      >
+        {desktopBands.map(([x, w], i) => (
+          <rect
+            key={x}
+            className="nos-anim nos-band"
+            style={delay(i * 0.5)}
+            x={x}
+            y="60"
+            width={w}
+            height="210"
+            rx="14"
+            fill={BAND_TINTS[i]}
+          />
+        ))}
+        <g
+          fontFamily={FONT}
+          fontSize="16"
+          fontWeight="600"
+          fill="#6b7383"
+          textAnchor="middle"
+        >
+          {desktopLabels.map((x, i) => (
+            <text key={x} x={x} y="46">
+              {periods[i]}
+            </text>
+          ))}
+        </g>
+        <line
+          x1="40"
+          y1="270"
+          x2="960"
+          y2="270"
+          stroke="#14171f"
+          strokeOpacity="0.2"
+          strokeWidth="2"
+        />
+        <path
+          className="nos-anim nos-draw"
+          pathLength={100}
+          d="M40 168 C 120 158 180 182 250 168 S 380 176 500 160 S 600 122 740 92 S 860 82 960 80"
+          fill="none"
+          stroke="#e8552f"
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          className="nos-anim nos-draw"
+          style={delay(0.25)}
+          pathLength={100}
+          d="M40 182 C 120 192 200 170 250 184 S 380 178 500 192 S 600 222 740 240 S 860 246 960 248"
+          fill="none"
+          stroke="#0f6b61"
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <line
+          className="nos-anim nos-band"
+          style={delay(2)}
+          x1="500"
+          y1="60"
+          x2="500"
+          y2="270"
+          stroke="#14171f"
+          strokeWidth="2"
+          strokeDasharray="6 6"
+        />
+        <g className="nos-anim nos-pop" style={delay(2)}>
+          <rect
+            x="448"
+            y="280"
+            width="104"
+            height="30"
+            rx="15"
+            fill="#14171f"
+          />
+          <text
+            x="500"
+            y="300"
+            textAnchor="middle"
+            fontFamily={FONT}
+            fontSize="15"
+            fontWeight="700"
+            fill="#fff"
+          >
+            {changeLabel}
+          </text>
+        </g>
+        {[250, 500, 740].map((x, i) => (
+          <circle
+            key={x}
+            className="nos-anim nos-band"
+            style={delay(0.6 + i * 0.5)}
+            cx={x}
+            cy="270"
+            r="6"
+            fill="#fff"
+            stroke="#14171f"
+            strokeWidth="3"
+          />
+        ))}
+        <g fontFamily={FONT} fontSize="14" fill="#2f5f59">
+          <text x="40" y="332">
+            {start}
+          </text>
+          <text x="960" y="332" textAnchor="end">
+            {end}
+          </text>
+        </g>
+      </svg>
+
+      <svg
+        viewBox="0 0 360 290"
+        width="100%"
+        className="block md:hidden"
+        role="img"
+        aria-label={alt}
+      >
+        {mobileBands.map((x, i) => (
+          <rect
+            key={x}
+            className="nos-anim nos-band"
+            style={delay(i * 0.5)}
+            x={x}
+            y="44"
+            width="80"
+            height="170"
+            rx="10"
+            fill={i % 2 === 0 ? "#fff3ec" : "#fff"}
+          />
+        ))}
+        <g
+          fontFamily={FONT}
+          fontSize="11"
+          fontWeight="600"
+          fill="#6b7383"
+          textAnchor="middle"
+        >
+          {mobileBands.map((x, i) => (
+            <text key={x} x={x + 40} y="34">
+              {periods[i]}
+            </text>
+          ))}
+        </g>
+        <line
+          x1="14"
+          y1="214"
+          x2="346"
+          y2="214"
+          stroke="#14171f"
+          strokeOpacity="0.2"
+          strokeWidth="2"
+        />
+        <path
+          className="nos-anim nos-draw"
+          pathLength={100}
+          d="M14 132 C 40 126 64 142 94 132 S 140 136 178 124 S 214 98 262 76 S 318 66 346 64"
+          fill="none"
+          stroke="#e8552f"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          className="nos-anim nos-draw"
+          style={delay(0.25)}
+          pathLength={100}
+          d="M14 142 C 40 150 64 134 94 144 S 140 140 178 152 S 214 174 262 188 S 318 194 346 196"
+          fill="none"
+          stroke="#0f6b61"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <line
+          className="nos-anim nos-band"
+          style={delay(2)}
+          x1="178"
+          y1="44"
+          x2="178"
+          y2="214"
+          stroke="#14171f"
+          strokeWidth="2"
+          strokeDasharray="5 5"
+        />
+        <g className="nos-anim nos-pop" style={delay(2)}>
+          <rect x="132" y="224" width="92" height="26" rx="13" fill="#14171f" />
+          <text
+            x="178"
+            y="241"
+            textAnchor="middle"
+            fontFamily={FONT}
+            fontSize="13"
+            fontWeight="700"
+            fill="#fff"
+          >
+            {changeLabel}
+          </text>
+        </g>
+        <g fontFamily={FONT} fontSize="12" fill="#2f5f59">
+          <text x="14" y="278">
+            {start}
+          </text>
+          <text x="346" y="278" textAnchor="end">
+            {end}
+          </text>
+        </g>
+      </svg>
+    </>
+  );
+}
+
+const RHYTHM = [54, 60, 50, 56, 28, 22, 26, 30, 24, 28];
+
+/** Seção 6: uma microdemonstração por pergunta. */
+export function Micro({
+  kind,
+  alt,
+  labels,
+}: {
+  kind: string;
+  alt: string;
+  labels?: readonly string[];
+}) {
+  return (
+    <svg
+      viewBox="0 0 240 90"
+      width="100%"
+      className="block"
+      role="img"
+      aria-label={alt}
+    >
+      {kind === "initiative" && (
+        <>
+          <line
+            x1="10"
+            y1="76"
+            x2="230"
+            y2="76"
+            stroke="#14171f"
+            strokeOpacity="0.15"
+            strokeWidth="2"
+          />
+          <path
+            className="nos-anim nos-draw"
+            pathLength={100}
+            d="M10 44 C 50 40 80 48 110 42 S 180 30 230 18"
+            fill="none"
+            stroke="#e8552f"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+          <path
+            className="nos-anim nos-draw"
+            style={delay(0.25)}
+            pathLength={100}
+            d="M10 50 C 50 54 80 46 110 52 S 180 62 230 70"
+            fill="none"
+            stroke="#0f6b61"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+        </>
+      )}
+      {kind === "rhythm" && (
+        <>
+          <line
+            x1="10"
+            y1="80"
+            x2="230"
+            y2="80"
+            stroke="#14171f"
+            strokeOpacity="0.15"
+            strokeWidth="2"
+          />
+          {RHYTHM.map((h, i) => (
+            <rect
+              key={i}
+              className="nos-anim nos-grow"
+              style={delay(i * 0.1)}
+              x={14 + i * 20}
+              y={80 - h}
+              width="14"
+              height={h}
+              rx="3"
+              fill="#0f6b61"
+              fillOpacity={i < 4 ? 1 : 0.55}
+            />
+          ))}
+        </>
+      )}
+      {kind === "start" && (
+        <>
+          <line
+            x1="10"
+            y1="76"
+            x2="230"
+            y2="76"
+            stroke="#14171f"
+            strokeOpacity="0.15"
+            strokeWidth="2"
+          />
+          <path
+            className="nos-anim nos-draw"
+            pathLength={100}
+            d="M10 30 L 100 32 C 112 32 116 52 128 54 L 230 56"
+            fill="none"
+            stroke="#e8552f"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <line
+            className="nos-anim nos-band"
+            style={delay(1.5)}
+            x1="116"
+            y1="10"
+            x2="116"
+            y2="76"
+            stroke="#14171f"
+            strokeWidth="2"
+            strokeDasharray="4 4"
+          />
+          <circle
+            className="nos-anim nos-pop"
+            style={delay(1.5)}
+            cx="116"
+            cy="46"
+            r="6"
+            fill="#fff"
+            stroke="#14171f"
+            strokeWidth="3"
+          />
+        </>
+      )}
+      {kind === "phase" && (
+        <>
+          <line
+            x1="8"
+            y1="70"
+            x2="112"
+            y2="70"
+            stroke="#14171f"
+            strokeOpacity="0.15"
+            strokeWidth="2"
+          />
+          <line
+            x1="128"
+            y1="70"
+            x2="232"
+            y2="70"
+            stroke="#14171f"
+            strokeOpacity="0.15"
+            strokeWidth="2"
+          />
+          <path
+            className="nos-anim nos-draw"
+            pathLength={100}
+            d="M8 36 L 38 36 L 52 58 L 66 58 L 80 36 L 112 36"
+            fill="none"
+            stroke="#0f6b61"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            className="nos-anim nos-draw"
+            style={delay(0.3)}
+            pathLength={100}
+            d="M128 36 L 158 36 L 172 58 L 232 58"
+            fill="none"
+            stroke="#e8552f"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <g
+            fontFamily={FONT}
+            fontSize="11"
+            fontWeight="600"
+            fill="#4b5363"
+            textAnchor="middle"
+          >
+            <text x="60" y="86">
+              {labels?.[0]}
+            </text>
+            <text x="180" y="86">
+              {labels?.[1]}
+            </text>
+          </g>
+        </>
+      )}
+      {kind === "constant" &&
+        [24, 46, 68].map((y, i) => (
+          <path
+            key={y}
+            className="nos-anim nos-draw"
+            style={delay(i * 0.2)}
+            pathLength={100}
+            d={`M10 ${y} L 230 ${y}`}
+            fill="none"
+            stroke="#0f6b61"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+        ))}
+    </svg>
+  );
+}

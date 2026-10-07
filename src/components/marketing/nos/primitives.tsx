@@ -13,7 +13,7 @@ export function NosMark() {
 /** Palavra de destaque em itálico serifado dentro de um título. */
 export function Accent({
   children,
-  className = "text-nos-orange-deep",
+  className = "text-nos-ink",
 }: {
   children: ReactNode;
   className?: string;

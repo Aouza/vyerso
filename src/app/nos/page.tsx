@@ -1,13 +1,13 @@
 import {
-  Footer,
   FinalCta,
+  Footer,
+  Invite,
   Objections,
-  Offer,
 } from "@/components/marketing/nos/closing";
 import { Header, Hero } from "@/components/marketing/nos/hero";
 import {
+  Different,
   HowItWorks,
-  NotATest,
   Privacy,
 } from "@/components/marketing/nos/how-privacy";
 import { Mirror, Reframe } from "@/components/marketing/nos/mirror-reframe";
@@ -17,8 +17,10 @@ import {
   Preview,
 } from "@/components/marketing/nos/preview";
 
-// Ordem das 12 seções: hero, espelho, reframe, prévia, descobertas, mecanismo,
-// como funciona, anti-promessa, privacidade, objeções, oferta, CTA final.
+// Ordem das 12 seções, cada uma com uma missão comercial:
+// 01 hero · 02 espelho · 03 mensagem isolada · 04 mecanismo · 05 demonstração
+// · 06 descobertas · 07 por que é diferente · 08 como funciona · 09 privacidade
+// · 10 convite · 11 objeções · 12 fechamento.
 // O teste de headline (variant "variacao") fica fora do ar até a OD-21.
 export default function NosPage() {
   return (
@@ -27,14 +29,14 @@ export default function NosPage() {
       <Hero />
       <Mirror />
       <Reframe />
+      <Mechanism />
       <Preview />
       <Discoveries />
-      <Mechanism />
+      <Different />
       <HowItWorks />
-      <NotATest />
       <Privacy />
+      <Invite />
       <Objections />
-      <Offer />
       <FinalCta />
       <Footer />
     </main>

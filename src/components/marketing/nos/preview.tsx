@@ -1,136 +1,213 @@
-import { nosCopy } from "@/features/marketing/nos/copy";
+import Link from "next/link";
+import { INTEREST_PATH, nosCopy } from "@/features/marketing/nos/copy";
+import { Micro, Timeline } from "./illustrations";
 import {
   Accent,
   ArrowIcon,
-  CheckCircleIcon,
+  CtaLink,
   Eyebrow,
   LockIcon,
+  NosMark,
   SectionTitle,
 } from "./primitives";
 
+const m = nosCopy.mechanism;
 const p = nosCopy.preview;
 const d = nosCopy.discoveries;
-const mech = nosCopy.mechanism;
 
-/** Seção 4: o Free Reveal só no formato. Nada de "quando", "quanto" ou duração. */
+/** Seção 4: a evolução das conversas, visível (exemplo do relatório completo). */
+export function Mechanism() {
+  return (
+    <section
+      id="mecanismo"
+      className="mx-auto max-w-[1160px] px-4 pb-12 md:px-8 md:pb-24"
+    >
+      <div className="flex flex-col gap-[18px] rounded-[28px] bg-white px-4 py-[26px] shadow-[0_18px_44px_rgba(20,23,31,0.08)] md:gap-8 md:rounded-[40px] md:p-14">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <div className="flex max-w-[700px] flex-col gap-3 md:gap-3.5">
+            <Eyebrow>
+              {m.eyebrowBefore}
+              <NosMark />
+              {m.eyebrowAfter}
+            </Eyebrow>
+            <SectionTitle>
+              {m.titleBefore}
+              <Accent>{m.titleAccent}</Accent>
+            </SectionTitle>
+            <p className="m-0 text-[15px] text-nos-muted md:text-lg">
+              {m.bodyBefore}
+              <NosMark />
+              {m.bodyAfter}
+            </p>
+          </div>
+          <p className="m-0 hidden rounded-[10px] border border-nos-ink/15 px-2.5 py-[3px] text-[13px] text-nos-muted md:block">
+            {m.badge}
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2 rounded-[22px] bg-nos-warm px-2.5 pb-2.5 pt-3.5 md:gap-6 md:bg-transparent md:p-0">
+          <p className="m-0 self-start rounded-[9px] border border-nos-ink/15 px-2 py-0.5 text-[11px] text-nos-muted md:hidden">
+            {m.badge}
+          </p>
+          <Timeline
+            alt={m.alt}
+            periods={m.periods}
+            changeLabel={m.changeLabel}
+            start={m.start}
+            end={m.end}
+          />
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-1 text-[13px] md:gap-x-10 md:px-0 md:text-sm">
+            <span className="inline-flex items-center gap-2">
+              <span className="inline-block h-1 w-[18px] rounded-sm bg-nos-orange md:h-[5px] md:w-[22px]" />
+              {m.legendYou}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="inline-block h-1 w-[18px] rounded-sm bg-nos-teal md:h-[5px] md:w-[22px]" />
+              {m.legendPerson}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 md:flex-row md:gap-5">
+          {m.captions.map((c) => (
+            <div
+              key={c.title}
+              className="flex flex-1 flex-col gap-0.5 md:gap-1.5"
+            >
+              <h3 className="m-0 text-[17px] font-bold md:text-xl md:tracking-[-0.02em]">
+                {c.title}
+              </h3>
+              <p className="m-0 text-sm text-nos-muted md:text-base">
+                {c.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Seção 5: o Free Reveal só no formato. Nada de "quando", "quanto" ou duração. */
 export function Preview() {
   return (
     <section
       id="previa"
       className="mx-auto max-w-[1160px] px-4 pb-12 md:px-8 md:pb-24"
     >
-      <div className="flex flex-wrap gap-8 rounded-[28px] bg-white px-[18px] py-[26px] shadow-[0_24px_60px_rgba(20,23,31,0.08)] md:gap-12 md:rounded-[36px] md:p-[52px]">
-        <div className="flex flex-[1_1_320px] flex-col gap-6 md:gap-7">
-          <div className="flex flex-col gap-4">
-            <Eyebrow>{p.eyebrow}</Eyebrow>
-            <SectionTitle>
-              {p.titleBefore}
-              <Accent className="text-nos-teal">{p.titleAccent}</Accent>
-              {p.titleAfter}
-            </SectionTitle>
-            <p className="m-0 text-[15px] text-nos-soft md:text-lg">{p.body}</p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="m-0 text-[13px] font-semibold uppercase tracking-[0.1em] text-nos-teal">
-              {p.freeLabel}
-            </p>
-            {p.free.map((t) => (
-              <div key={t} className="flex items-start gap-3 text-base">
-                <CheckCircleIcon className="mt-0.5 text-nos-teal" />
-                <span>{t}</span>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="m-0 text-[13px] font-semibold uppercase tracking-[0.1em] text-nos-faint">
-              {p.fullLabel}
-            </p>
-            {p.full.map((t) => (
-              <div
-                key={t}
-                className="flex items-start gap-3 text-base text-nos-muted"
-              >
-                <span className="mt-0.5 shrink-0 text-nos-faint">
-                  <LockIcon size={22} />
+      <div className="flex flex-wrap items-center gap-5 rounded-[28px] bg-white px-4 py-[26px] shadow-[0_18px_44px_rgba(20,23,31,0.08)] md:gap-14 md:rounded-[40px] md:p-14">
+        <div className="flex flex-[1_1_340px] flex-col gap-5 md:gap-7">
+          <Eyebrow>{p.eyebrow}</Eyebrow>
+          <SectionTitle>
+            {p.titleBefore}
+            <NosMark />
+            {p.titleMid}
+            <Accent>{p.titleAccent}</Accent>
+          </SectionTitle>
+          <div className="flex flex-col gap-3 md:gap-[18px]">
+            {p.steps.map((s, i) => (
+              <div key={s} className="flex items-center gap-3 md:gap-4">
+                <span className="grid size-[34px] shrink-0 place-items-center rounded-full bg-nos-ink text-sm font-bold text-white md:size-10 md:text-base">
+                  {i + 1}
                 </span>
-                <span>{t}</span>
+                <span className="text-lg font-semibold tracking-[-0.02em] md:text-[22px]">
+                  {s}
+                </span>
               </div>
             ))}
           </div>
+          <p className="m-0 text-[13px] text-nos-soft md:text-sm">{p.note}</p>
+          <CtaLink
+            href={INTEREST_PATH}
+            className="justify-between self-stretch md:self-start"
+          >
+            {p.cta}
+          </CtaLink>
         </div>
 
-        <div className="flex flex-[1_1_480px] flex-col gap-3.5 rounded-[22px] bg-nos-warm p-3.5 md:rounded-[28px] md:p-[22px]">
+        <div className="flex flex-[1_1_480px] flex-col gap-3 rounded-[22px] bg-nos-warm p-3.5 md:gap-4 md:rounded-[28px] md:p-6">
           <div className="flex items-center justify-between px-1">
-            <p className="m-0 text-[13px] text-nos-soft">{p.panelLabel}</p>
-            <p className="m-0 rounded-[10px] border border-nos-ink/15 px-2.5 py-[3px] text-xs text-nos-muted">
+            <p className="m-0 text-[13px] text-nos-soft md:text-sm">
+              {p.panelLabel}
+            </p>
+            <p className="m-0 rounded-[10px] border border-nos-ink/15 px-2.5 py-[3px] text-xs text-nos-muted md:text-[13px]">
               {p.exampleBadge}
             </p>
           </div>
-          <div className="flex flex-wrap gap-2.5">
-            {p.metrics.map((mt) => (
+
+          <div className="flex flex-col gap-2 rounded-2xl bg-white px-4 py-3.5 md:gap-2.5 md:rounded-[20px] md:px-[22px] md:py-[18px]">
+            <p className="m-0 text-sm font-semibold md:text-[15px]">
+              {p.processing}
+            </p>
+            <div className="h-[7px] overflow-hidden rounded-full bg-[#efebe4] md:h-2">
+              <div className="nos-anim nos-bar h-full w-full rounded-full bg-nos-teal" />
+            </div>
+          </div>
+
+          <div className="flex gap-2 md:flex-wrap md:gap-2.5">
+            {p.tiles.map((t) => (
               <div
-                key={mt.label}
-                className="flex-[1_1_140px] rounded-[16px] bg-white px-3.5 py-3 md:rounded-[18px] md:px-4 md:py-3.5"
+                key={t.label}
+                className="flex-1 rounded-[14px] bg-white p-3 md:min-w-[140px] md:rounded-[18px] md:px-4 md:py-3.5"
               >
-                <p className="m-0 flex items-center gap-1.5 text-xs text-nos-soft">
-                  <span className="inline-block size-[7px] rounded-full bg-nos-teal" />
-                  {mt.label}
+                <p className="m-0 text-xl font-bold leading-none tracking-[-0.03em] md:text-[28px]">
+                  {t.value}
                 </p>
-                <p className="m-0 mt-2 text-2xl font-bold leading-none tracking-[-0.03em] md:text-[28px]">
-                  {mt.value}
+                <p className="m-0 mt-1 text-xs text-nos-soft md:mt-1.5 md:text-[13px]">
+                  {t.label}
                 </p>
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-3 rounded-[18px] border-2 border-nos-teal bg-white p-4 md:rounded-[20px] md:px-6 md:py-[22px]">
-            <div className="flex items-center justify-between gap-2.5">
-              <p className="m-0 text-xs font-bold uppercase tracking-[0.1em] text-nos-teal">
+
+          <div
+            className="nos-anim nos-in flex flex-col gap-2.5 rounded-[20px] border-2 border-nos-teal bg-white p-5 md:gap-3.5 md:rounded-3xl md:px-[30px] md:py-7"
+            style={{ animationDuration: "9s", animationDelay: "1.2s" }}
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2.5">
+              <p className="m-0 text-[11px] font-bold uppercase tracking-[0.1em] text-nos-teal md:text-[13px]">
                 {p.findingLabel}
               </p>
-              <span className="rounded-full bg-nos-teal-tint px-2.5 py-[3px] text-xs font-semibold text-nos-teal">
+              <span className="rounded-full bg-nos-teal-tint px-2.5 py-[3px] text-[11px] font-semibold text-nos-teal md:px-3 md:text-[13px]">
                 {p.findingBadge}
               </span>
             </div>
-            <p className="m-0 text-[22px] font-bold leading-[1.14] tracking-[-0.03em] md:text-[26px]">
+            <p className="m-0 text-[26px] font-bold leading-[1.12] tracking-[-0.03em] md:text-[34px]">
               {p.findingBefore}
-              <Accent>{p.findingAccent}</Accent>
+              <Accent className="text-nos-orange-deep">
+                {p.findingAccent}
+              </Accent>
               {p.findingAfter}
             </p>
-            <p className="m-0 text-[13px] text-nos-muted md:text-sm">
-              {p.findingNote}
+            <p className="m-0 text-sm text-nos-muted md:text-base">
+              {p.periods}
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-3.5 rounded-[18px] bg-white p-4 md:rounded-[20px] md:px-6 md:py-5">
-            <div className="flex max-w-[300px] flex-col gap-1">
-              <p className="m-0 text-lg font-bold tracking-[-0.02em] md:text-xl">
-                {p.periodsTitle}
-              </p>
-              <p className="m-0 text-[13px] text-nos-soft">{p.periodsNote}</p>
-            </div>
-            <span className="inline-flex items-center gap-3 rounded-full bg-nos-ink py-1.5 pl-5 pr-1.5 text-sm font-semibold text-white">
-              {p.periodsCta}
-              <span className="grid size-9 place-items-center rounded-full bg-nos-coral text-nos-ink">
-                <ArrowIcon size={16} />
-              </span>
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2.5">
+
+          <p className="m-0 mt-1 px-1 text-[13px] font-semibold text-nos-muted md:mt-2 md:text-sm">
+            {p.fullLabel}
+          </p>
+          <div className="flex flex-col gap-2 md:flex-row md:flex-wrap md:gap-2.5">
             {p.locked.map((t) => (
               <div
                 key={t.title}
-                className="relative min-h-[88px] flex-[1_1_150px] overflow-hidden rounded-[16px] bg-white p-4"
+                className="relative overflow-hidden rounded-2xl bg-white px-4 py-3.5 md:min-h-24 md:flex-[1_1_150px] md:rounded-[18px] md:p-4"
               >
                 <div
-                  className="flex flex-col gap-2 blur-[5px]"
+                  className="flex flex-col gap-2 blur-[4px] md:blur-[5px]"
                   aria-hidden="true"
                 >
-                  <p className="m-0 text-[15px] font-bold">{t.title}</p>
-                  <span className="block h-2 w-[90%] rounded-full bg-[#e3ded5]" />
-                  <span className="block h-2 w-[70%] rounded-full bg-[#e3ded5]" />
+                  <p className="m-0 text-sm font-bold md:text-[15px]">
+                    {t.title}
+                  </p>
+                  <span className="block h-[7px] w-3/4 rounded-full bg-[#e3ded5] md:h-2" />
+                  <span className="hidden h-2 w-[70%] rounded-full bg-[#e3ded5] md:block" />
                 </div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-white/35">
-                  <LockIcon size={22} />
-                  <span className="text-xs font-semibold">{t.label}</span>
+                <div className="absolute inset-0 flex items-center justify-center gap-2 bg-white/35 md:flex-col md:gap-1">
+                  <LockIcon size={20} />
+                  <span className="text-[13px] font-semibold md:text-sm">
+                    {t.label}
+                  </span>
                 </div>
               </div>
             ))}
@@ -142,71 +219,62 @@ export function Preview() {
   );
 }
 
-/** Seção 5: as perguntas que a análise ajuda a investigar. */
+/** Seção 6: cada pergunta vem com uma microdemonstração diferente. */
 export function Discoveries() {
   return (
     <section
       id="descobertas"
       className="mx-auto flex max-w-[1160px] flex-col gap-3 px-4 pb-12 md:gap-10 md:px-8 md:pb-24"
     >
-      <div className="flex max-w-[760px] flex-col gap-3 px-1 pb-1.5 md:gap-3.5 md:px-0 md:pb-0">
-        <Eyebrow>{d.eyebrow}</Eyebrow>
-        <SectionTitle>
-          {d.titleBefore}
-          <Accent>{d.titleAccent}</Accent>
-          {d.titleAfter}
-        </SectionTitle>
+      <div className="flex flex-wrap items-end justify-between gap-5 px-1 pb-1.5 md:px-0 md:pb-0">
+        <div className="flex max-w-[700px] flex-col gap-3 md:gap-3.5">
+          <Eyebrow>{d.eyebrow}</Eyebrow>
+          <SectionTitle>
+            {d.titleBefore}
+            <Accent>{d.titleAccent}</Accent>
+            {d.titleAfter}
+          </SectionTitle>
+        </div>
+        <p className="m-0 rounded-[9px] border border-nos-ink/15 px-2 py-0.5 text-xs text-nos-muted md:rounded-[10px] md:px-2.5 md:py-[3px] md:text-[13px]">
+          {d.badge}
+        </p>
       </div>
-      <div className="flex flex-wrap gap-3 md:gap-4">
+      <div className="flex flex-wrap gap-3 md:gap-5">
         {d.items.map((it) => (
           <div
-            key={it.title}
-            className="flex-[1_1_300px] rounded-[20px] bg-white px-5 py-[18px] shadow-[0_10px_26px_rgba(20,23,31,0.06)] md:rounded-3xl md:px-7 md:py-[26px]"
+            key={it.key}
+            className="flex flex-[1_1_320px] flex-col gap-3 rounded-[22px] bg-white p-4 shadow-[0_10px_26px_rgba(20,23,31,0.06)] md:gap-4 md:rounded-[28px] md:p-6 md:shadow-[0_16px_40px_rgba(20,23,31,0.06)]"
           >
-            <h3 className="m-0 text-lg font-bold md:text-[21px] md:tracking-[-0.02em]">
-              {it.title}
-            </h3>
-            <p className="m-0 mt-1 text-[15px] text-nos-muted md:mt-2 md:text-base">
-              {it.text}
-            </p>
+            <div className="rounded-[14px] bg-nos-warm p-1.5 md:rounded-[18px] md:p-2">
+              <Micro
+                kind={it.key}
+                alt={it.alt}
+                labels={"labels" in it ? it.labels : undefined}
+              />
+            </div>
+            <div>
+              <h3 className="m-0 text-lg font-bold md:text-[22px] md:tracking-[-0.02em]">
+                {it.title}
+              </h3>
+              <p className="m-0 mt-0.5 text-[15px] text-nos-muted md:mt-1 md:text-base">
+                {it.text}
+              </p>
+            </div>
           </div>
         ))}
-      </div>
-    </section>
-  );
-}
-
-/** Seção 6: por que olhar o histórico inteiro. */
-export function Mechanism() {
-  return (
-    <section
-      id="mecanismo"
-      className="mx-auto max-w-[1160px] px-4 pb-12 md:px-8 md:pb-24"
-    >
-      <div className="flex flex-col gap-5 rounded-[28px] bg-white px-[18px] py-[26px] shadow-[0_18px_44px_rgba(20,23,31,0.08)] md:gap-9 md:rounded-[36px] md:p-[52px]">
-        <h2 className="m-0 max-w-[760px] text-[28px] font-bold leading-[1.08] tracking-[-0.03em] md:text-[40px] md:leading-[1.06]">
-          {mech.titleBefore}
-          <Accent>{mech.titleAccent}</Accent>
-        </h2>
-        <div className="flex flex-wrap gap-5 md:gap-6">
-          {mech.items.map((it, i) => (
-            <div
-              key={it.title}
-              className="flex flex-[1_1_260px] items-start gap-3.5 md:flex-col md:gap-3"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-nos-ink font-bold text-white md:size-11">
-                {i + 1}
-              </span>
-              <div>
-                <h3 className="m-0 text-lg font-bold md:text-[21px] md:tracking-[-0.02em]">
-                  {it.title}
-                </h3>
-                <p className="m-0 mt-1 text-[15px] text-nos-muted md:text-base">
-                  {it.text}
-                </p>
-              </div>
-            </div>
-          ))}
+        <div className="hidden flex-[1_1_320px] flex-col justify-between gap-[18px] rounded-[28px] bg-nos-ink p-7 text-white md:flex">
+          <p className="m-0 text-[26px] font-bold leading-[1.15] tracking-[-0.03em]">
+            {d.callout}
+          </p>
+          <Link
+            href={INTEREST_PATH}
+            className="inline-flex items-center gap-3 self-start rounded-full bg-white py-1.5 pl-[22px] pr-1.5 text-base font-semibold text-nos-ink no-underline"
+          >
+            {d.cta}
+            <span className="grid size-10 place-items-center rounded-full bg-nos-coral">
+              <ArrowIcon size={18} />
+            </span>
+          </Link>
         </div>
       </div>
     </section>
