@@ -1,10 +1,10 @@
 # DATABASE — Vyerso
 
-**Versão:** 0.2
-**Status:** Aprovado com alterações (DB-Q1, DB-Q4, DB-Q6) — nenhuma migration foi criada
-**Histórico:** ver §14
-**Escopo:** modelo de dados do MVP **O Que Mudou?** (EPIC 01 → EPIC 05)
-**Relaciona-se com:** PRD §4/§14–16, ARCHITECTURE §6/§12–16, DECISIONS ADR-003/005/006/007
+**Versão:** 0.6
+**Status:** Aprovado (DB-Q1, DB-Q4, DB-Q6). M1 (`connections`) implementada e aplicada no DEV; M2+ não criadas.
+**Histórico:** ver §14. Alinhamentos com os docs de produto (2026-10-06/07): ver §15.
+**Escopo:** modelo de dados do **Nós** (primeira análise; antes chamado "O Que Mudou?"), EPIC 01 → EPIC 05. A estratégia cross-product foi decidida no ADR-020: derivados persistentes formam conceitualmente um **Relationship Snapshot**; o schema físico de Nossa História/artefatos narrativos ainda não está autorizado até `RELATIONSHIP_SNAPSHOT.md` fechar os limites.
+**Relaciona-se com:** `PRODUCT.md`, `PRIVACY.md` (dona dos números finais de retenção e excertos), `ARCHITECTURE.md`, `DECISIONS.md` (ADR-005/006/012–015). As menções a "PRD" abaixo referem-se ao `archive/PRD_v5_superseded.md`.
 
 ---
 
@@ -14,7 +14,7 @@
 
 **O que foi dito (requisitos):** usuário autenticado; várias conexões por usuário; várias análises por conexão ao longo do tempo; origem/importação da conversa; lifecycle da análise; resultados estruturados; evidências ligadas a insights; isolamento por usuário; RLS deny-by-default; separar o que persiste do que é re-derivável; privacidade das mensagens; abertura futura para créditos/entitlements sem implementar billing.
 
-**Critério de sucesso:** um schema em que (a) nenhuma linha é legível por outro usuário, nem por engano de UI; (b) cada insight chega a métrica → período → evidência; (c) a decisão sobre reter conversa bruta é **explícita e reversível**, não um efeito colateral do schema.
+**Critério de sucesso:** um schema em que (a) nenhuma linha é legível por outro usuário, nem por engano de UI; (b) cada insight chega a métrica → período → evidência; (c) a retenção do raw segue a **ADR-020**: conversa efêmera + derivados persistentes não reconstruíveis (Relationship Snapshot). Qualquer mudança dessa política exige nova decisão explícita de produto/privacidade, e nunca pode ser um efeito colateral do schema.
 
 **Suposições minhas (corrija se erradas):**
 
@@ -187,7 +187,7 @@ Ela muda o significado de "derivado":
 3. O dataset normalizado existe **só em memória** durante o processamento.
 4. **Não criar tabela `messages` no MVP.**
 5. **Alteração aprovada:** referências como `source_index` **não bastam** depois que o original é destruído. O sistema **pode persistir somente o conjunto mínimo de evidências selecionadas** necessário para fundamentar os insights do relatório: pequenos excerpts, papel do falante, timestamp, `source_index` e metadata relevante. Esse conjunto **não pode representar uma cópia reconstruível da conversa completa**. Modelo, limites, implicações de privacidade e retenção em **§7.6**.
-6. Por ser reversível (A/C → B é fácil; B → A não), continua sendo a escolha de menor arrependimento para um MVP que valida hipótese de mercado.
+6. Esta opção foi escolhida originalmente por ser a de menor arrependimento (passar de A/C para B é fácil; o inverso, não). **Hoje a política é fixa pela ADR-020**, não uma escolha reversível a critério da implementação: ampliar a retenção exige nova decisão explícita de produto/privacidade.
 
 **Custos assumidos (explícitos):**
 
@@ -286,7 +286,7 @@ O objetivo dos limites é **impedir reconstrução**: com no máximo algumas dez
 Nada de billing no schema agora. Duas concessões de design, ambas baratas:
 
 1. **`analyses.reveal_summary` (jsonb pequeno)** guarda o que o Free Reveal mostra (contagens, nº de fases/mudanças, 1 descoberta). As tabelas de detalhe ficam separadas, de modo que a RLS de detalhe possa ganhar um predicado de desbloqueio depois **sem mover dados**.
-2. **`analyses.id` é a unidade natural de compra** ("O Que Mudou?" de uma conexão). Um futuro `entitlements(analysis_id | connection_id, kind, granted_at, source)` se pluga sem alterar as tabelas existentes.
+2. **`analyses.id` identifica uma execução analítica do Nós; `connections.id`, o histórico.** O entitlement comercial é definido **por produto** (Nós, Nossa História, Próximo Passo, bundle) e pode referenciar a análise ou a conexão, conforme o modelo aprovado depois (OD-06). Um futuro `entitlements(product, analysis_id | connection_id, granted_at, source)` se pluga sem alterar as tabelas existentes; o desenho é só ilustrativo, não um compromisso de schema.
 
 Como o provedor de pagamento (ADR-009) e o modelo (compra por análise vs. por conexão vs. créditos) estão abertos, **não** reservar colunas `is_paid`/`credits` agora.
 
@@ -527,7 +527,7 @@ Alternativa considerada: um `analyses.result jsonb` único. Simples, mas: não d
 | **DB-Q4** | Escrita de status/resultados | **DECIDIDO:** exclusivamente servidor; clientes só `SELECT`; admin valida ownership e tem testes (§5) | — |
 | **DB-Q5** | Guardar `content_sha256`? | Sim, só para detectar reenvio; remover se `PRIVACY.md` julgar desnecessário | M2 |
 | **DB-Q6** | Precisamos de `profiles`? | **DECIDIDO:** não no MVP; usar `auth.users` até existir requisito concreto. Consentimento LGPD pode forçar isso antes de produção; reabrir então | — |
-| **DB-Q7** | Ferramenta de teste de RLS | pgTAP via Supabase CLI local | M1 |
+| **DB-Q7** | Ferramenta de teste de RLS | **DECIDIDO pragmaticamente:** integração contra Supabase DEV (ADR-016); revisitar para Supabase local/CI efêmero quando disponível | — |
 | **DB-Q8** | "Exatamente 2 participantes": trigger deferido ou validação no fluxo? | validação no fluxo + teste; trigger só se aparecer bypass | M2 |
 | **DB-Q9** | Job runner / varredura de purga (ADR-010) | separado; M2 só precisa dos campos `raw_expires_at`/`raw_purged_at` | purga real |
 | **DB-Q10** | Modelo de compra (por análise / conexão / créditos), provider (ADR-009) | adiar; §9 mantém o encaixe | M4 |
@@ -569,3 +569,22 @@ Fora do EPIC 01: participants, imports, Storage, analyses, resultados, excerpts,
   - `evidence.message_ref` removido; `kind` passou de `message_ref` para `message_sample`.
 
 - **0.3 (EPIC 01)** — M1 `connections` implementada; ver ADR-013/016/017. DB-Q7 resolvido de forma pragmática (integração contra DEV, ADR-016).
+- **0.4 (2026-10-06)** — alinhamento com os docs de produto (`PRODUCT.md`, `PRIVACY.md`, `MONETIZATION.md`); ver §15. Nenhuma mudança de schema.
+- **0.5 (2026-10-06)** — ADR-020 aprovado: processamento efêmero + Relationship Snapshot; DB-Q7 alinhado ao ADR-016. Nenhuma migration nova autorizada para snapshot; schema depende de `RELATIONSHIP_SNAPSHOT.md`.
+- **0.6 (2026-10-07)** — Free Reveal só do Nós, gerado da mesma análise congelada (`FREE_REVEAL.md`, ADR-022); ver §15 item 9. Nenhuma mudança de schema.
+
+---
+
+## 15. Alinhamento com os docs de produto (2026-10-06)
+
+Esta seção só registra o que mudou ao redor do schema; as tabelas e RLS acima continuam válidas para M1–M3.
+
+1. **Produto:** o modelo serve ao **Nós**. "O Que Mudou?" é gancho/seção do relatório (ADR-018). `context_type` (`partner`/`dating`/`ex`) segue como personalização do Nós, não como produtos.
+2. **Fonte dos números de retenção:** `PRIVACY.md` (DRAFT) é dono dos limites finais. Os valores de §7.6 (280 caracteres, 3/30/60 excertos) são propostas e **não devem virar `CHECK` além do teto de 280 caracteres** até o `PRIVACY.md` fechar.
+3. **Entitlements por produto (§9, §9.1):** o desbloqueio deve ser por produto (Nós, Nossa História, Próximo Passo, bundle). O `reveal_summary` continua sendo a única fonte do Free Reveal. Não reservar colunas de billing (`MONETIZATION.md`: preços e provider TBD).
+4. **Pipeline de ofertas:** a oferta pós-Nós consome metadados do resultado **final** e nunca o altera (`PRODUCT_FLOWS.md` §2). Se precisarmos de classificação ("pontos que merecem atenção"), ela deve ser calculada e persistida pela análise, não pelo motor de ofertas.
+5. **Nossa História / ADR-020:** a direção está decidida: durante a janela efêmera do raw, o pipeline deve poder extrair artefatos narrativos mínimos necessários aos produtos conhecidos e persistir uma representação deliberadamente não reconstruível — o **Relationship Snapshot**. **Ainda não há autorização para inventar tabela/schema de artefatos narrativos.** Primeiro fechar `RELATIONSHIP_SNAPSHOT.md` + `PRIVACY.md` (tipos, limites, retenção, não-contiguidade e orçamento total de texto). Se um produto futuro precisar de informação ausente do snapshot, exigir re-upload.
+6. **Não reconstruibilidade:** `messages`, todas as mensagens normalizadas, transcript em JSON, embeddings de toda a conversa ou coleções não limitadas de candidatos narrativos continuam proibidos por padrão. O snapshot preserva estrutura/derivados, não a conversa.
+7. **Purga:** o raw só deve ser purgado depois que os derivados aprovados para a execução forem gravados de forma durável; falhas/abandonos continuam sujeitos ao TTL definido em `PRIVACY.md`.
+8. **Nomes de estado:** `ARCHITECTURE.md` §10 usa `pending → processing → completed | failed | insufficient_data`; este documento usa `queued` em vez de `pending`. Resolver os nomes na M3 (não é decisão de produto).
+9. **Free Reveal (`FREE_REVEAL.md`, ADR-022):** é do Nós. `analyses.reveal_summary` é gerado do **mesmo resultado congelado** que alimenta as tabelas de detalhe (nunca de um cálculo separado) e é o único payload legível sem entitlement. O schema exato do payload fica para a M3 e depende de OD-23.

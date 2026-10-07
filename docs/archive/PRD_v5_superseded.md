@@ -1,3 +1,7 @@
+> **SUPERSEDED / ARQUIVADO (2026-10-06).** Este PRD v5.0 foi substituído por `docs/PRODUCT.md` (canônico). Mantido só como histórico: ele define 'O Que Mudou?' como produto do MVP, o que não vale mais (hoje é gancho de aquisição do **Nós**). Conteúdo útil ainda não migrado: hipóteses críticas (§21), funil de métricas (§20), Free Reveal (§13). Não use como fonte de verdade.
+
+---
+
 # PRD — Vyerso
 
 **Versão:** 5.0  

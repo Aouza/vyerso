@@ -1,26 +1,32 @@
 # Vyerso — Claude Code Instructions
 
-Vyerso é um produto brasileiro que transforma históricos de conversa em análises longitudinais explicáveis. O primeiro produto é **O Que Mudou?**.
+Vyerso é um produto brasileiro que transforma históricos de conversa em experiências longitudinais explicáveis sobre uma relação. O produto principal e de aquisição é **Nós**; "O Que Mudou?" é gancho de aquisição, não produto (`docs/PRODUCT.md`, ADR-018).
 
 ## Leia antes de trabalhar
 
-Sempre leia:
+Comece por `docs/README.md` (ordem de leitura e semântica de status). Leia só o relevante:
 
-- `docs/PRD.md`
-- `docs/ARCHITECTURE.md`
-- `docs/DECISIONS.md`
+- Produto e fluxos: `docs/PRODUCT.md`, `docs/PRODUCT_FLOWS.md`
+- Arquitetura e segurança: `docs/ARCHITECTURE.md`
+- Banco, migrations e RLS: `docs/DATABASE.md`
+- Decisões já tomadas: `docs/DECISIONS.md`
+- Decisões em aberto e conflitos: `docs/OPEN_DECISIONS.md`
+- Estado de maturidade e próximo trabalho (fonte única de status): `docs/PRODUCT_READINESS.md`
+- Sequência de EPICs: `docs/ROADMAP.md`
+- Analytics: `docs/ANALYTICS_ENGINE.md` (DRAFT)
+- Upload, retenção, LLM ou logs com dados de conversa: `docs/PRIVACY.md` (DRAFT)
+- Derivados persistentes, retenção de texto e reuso entre produtos: `docs/RELATIONSHIP_SNAPSHOT.md` (DRAFT; leia antes de mexer em retenção do import, artefatos narrativos ou evidências)
+- Monetização e paywall: `docs/MONETIZATION.md`; Free Reveal (só do Nós): `docs/FREE_REVEAL.md`
+- Landings (`/nos`, Brand Home, `/nossa-historia`) e marketing: `docs/LANDING_BRIEF.md`, `docs/MARKETING.md`
+- IA/Jev: `docs/AI_DECISION_LAYER.md` (EXPERIMENT)
 
-Para trabalho analítico, leia também `docs/ANALYTICS_ENGINE.md` quando existir.
-Para banco/migrations, leia `docs/DATABASE.md` quando existir.
-Para upload, retenção, LLM ou logs com dados de conversa, leia `docs/PRIVACY.md` quando existir.
+Respeite o status de cada doc. DRAFT e EXPERIMENT não autorizam implementação. Se docs canônicos conflitarem, **pare e reporte** em vez de resolver em silêncio. `docs/archive/` é só histórico.
 
 ## Fase atual
 
-Pré-implementação / Foundation.
+EPIC 00 (Foundation) e EPIC 01 (Connection foundation) concluídos. Próximos passos e bloqueios: `docs/ROADMAP.md` e `docs/OPEN_DECISIONS.md`.
 
-O único produto autorizado para o MVP é **O Que Mudou?**.
-
-Não implementar features de roadmap apenas porque aparecem no PRD.
+Não implementar analytics antes de `docs/ANALYTICS_ENGINE.md` estar definido, nem persistência de derivados por produto (M2/M3) antes de `docs/RELATIONSHIP_SNAPSHOT.md` aprovado, nem upload real em produção antes de `docs/PRIVACY.md` final. Não implementar features só porque aparecem em docs de estratégia.
 
 ## Stack aprovada
 
@@ -56,17 +62,14 @@ Não implementar features de roadmap apenas porque aparecem no PRD.
 4. preserve compatibilidade com o MVP;
 5. não amplie escopo sem autorização.
 
-## Primeira missão
+## Como iniciar uma nova EPIC
 
-Não comece implementando features.
+Não comece implementando.
 
-Primeiro:
-
-1. audite criticamente `PRD.md` e `ARCHITECTURE.md`;
-2. identifique riscos e decisões ainda abertas;
-3. proponha um plano pequeno para **EPIC 00 — Foundation**;
-4. explique qualquer alteração arquitetural sugerida;
-5. aguarde aprovação antes de decisões estruturais não documentadas.
+1. leia os docs relevantes e confira `docs/OPEN_DECISIONS.md` e `docs/ROADMAP.md`;
+2. para modelagem, RLS, privacidade ou analytics, use o workflow rigoroso (ver "Superpowers usage");
+3. proponha um plano pequeno e liste as decisões que dependem do dono do produto;
+4. aguarde aprovação antes de decisões estruturais não documentadas.
 
 ## Superpowers usage
 
