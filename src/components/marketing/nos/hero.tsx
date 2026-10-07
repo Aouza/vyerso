@@ -1,5 +1,7 @@
+import Link from "next/link";
 import {
   HEADLINES,
+  INTEREST_PATH,
   nosCopy,
   type HeadlineVariant,
 } from "@/features/marketing/nos/copy";
@@ -28,12 +30,12 @@ export function Header() {
             </a>
           ))}
         </nav>
-        <a
-          href="#lista"
+        <Link
+          href={INTEREST_PATH}
           className="inline-flex min-h-11 items-center rounded-full bg-nos-ink px-[18px] text-sm font-semibold text-white no-underline md:px-[22px] md:text-[15px]"
         >
           {nosCopy.nav.cta}
-        </a>
+        </Link>
       </div>
     </header>
   );
@@ -184,7 +186,7 @@ export function Hero({ variant = "controle" }: { variant?: HeadlineVariant }) {
             {c.productAfter}
           </p>
           <CtaLink
-            href="#lista"
+            href={INTEREST_PATH}
             className="self-stretch justify-between md:self-start"
           >
             {c.cta}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 /** Destaque do produto: toda menção ao Nós usa este componente. */
@@ -132,7 +133,7 @@ export function CtaLink({
   className?: string;
 }) {
   return (
-    <a
+    <Link
       href={href}
       className={`inline-flex items-center gap-3.5 rounded-full bg-nos-ink py-2 pl-7 pr-2 text-[17px] font-semibold text-white no-underline shadow-[0_14px_30px_rgba(20,23,31,0.25)] ${className}`}
     >
@@ -140,7 +141,7 @@ export function CtaLink({
       <span className="grid size-11 place-items-center rounded-full bg-nos-coral text-nos-ink">
         <ArrowIcon />
       </span>
-    </a>
+    </Link>
   );
 }
 

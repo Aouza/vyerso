@@ -12,7 +12,7 @@
 
 ## 1. Objetivo
 Este brief cobre principalmente a landing do **Nós (`/nos`)**. A Brand Home e a landing de Nossa História estão em §7 e §8 (ADR-021). O design em revisão é a /nos, não a Home.
-Validar demanda pelo **Nós** com lista de espera (ainda não há importação nem análise no produto). Métrica de sucesso: visita → e-mail, por origem (UTM) e por gancho.
+Validar demanda pelo **Nós** com uma **fake door** (ainda não há importação nem análise no produto). Fluxo (decisão do dono do produto, 2026-10-07): a página de vendas **não mostra preço nem pede e-mail**; todo CTA leva à tela de interesse (`/nos/interesse`), que diz com clareza que o produto ainda não está disponível e que nada foi cobrado, e só ali pede o e-mail. Métrica de sucesso: visita → clique no CTA → e-mail, por origem (UTM) e por gancho.
 
 ## 2. Posicionamento
 - **Produto:** Nós ("A relação de vocês, vista pelas conversas").
@@ -49,7 +49,10 @@ Todo dado visual é fictício e rotulado "Exemplo ilustrativo". Os sinais mostra
 | Nossa História disponível | **Não afirmar** até existir spec (OD-19); na Home, só "em breve" |
 | Nota, avaliações, número de pessoas na lista | **Placeholder** até haver dado real |
 
-## 5. Lista de espera
+## 5. Interesse e lista de espera (tela `/nos/interesse`)
+- A tela é a única que pede e-mail, e antes disso afirma: o produto ainda não está disponível, nada foi cobrado, nenhuma conversa foi enviada.
+- Pergunta opcional de um toque ("o que você mais quer descobrir?"), sem dado de conversa.
+- A visita à tela é o sinal de intenção (contável no servidor); a ferramenta de analytics segue na OD-21.
 - E-mail apenas para avisar da abertura; aceite explícito e link para a política.
 - Captura de origem (UTM) sem nenhum dado de conversa.
 - Armazenamento e base legal: OD-11 (decisão pendente).

@@ -1,5 +1,7 @@
+import Link from "next/link";
 import {
   HEADLINES,
+  INTEREST_PATH,
   nosCopy,
   type HeadlineVariant,
 } from "@/features/marketing/nos/copy";
@@ -10,7 +12,6 @@ import {
   Eyebrow,
   NosMark,
 } from "./primitives";
-import { WaitlistForm } from "./waitlist-form";
 
 const o = nosCopy.objections;
 const f = nosCopy.offer;
@@ -57,7 +58,7 @@ export function Objections() {
   );
 }
 
-/** Seção 11: oferta. O preço continua placeholder (LANDING_BRIEF §6). */
+/** Seção 11: oferta, sem preço (LANDING_BRIEF §6). O CTA leva à tela de interesse. */
 export function Offer() {
   return (
     <section
@@ -92,11 +93,9 @@ export function Offer() {
               {f.pendingItems}
             </div>
           </div>
-          <p className="m-0 text-[28px] font-bold tracking-[-0.03em] text-nos-faint md:text-4xl">
-            {f.price}
-          </p>
+          <p className="m-0 text-sm text-nos-soft md:text-[15px]">{f.note}</p>
           <CtaLink
-            href="#lista"
+            href={INTEREST_PATH}
             className="justify-between self-stretch md:self-start"
           >
             {f.cta}
@@ -116,7 +115,7 @@ export function FinalCta({
   const h = HEADLINES[variant];
   return (
     <section
-      id="lista"
+      id="fim"
       className="mx-auto max-w-[1160px] px-4 pb-12 md:px-8 md:pb-24"
     >
       <div
@@ -132,7 +131,12 @@ export function FinalCta({
         <p className="m-0 max-w-[540px] text-[15px] text-nos-muted md:text-lg">
           {fc.body}
         </p>
-        <WaitlistForm />
+        <CtaLink
+          href={INTEREST_PATH}
+          className="mt-2 justify-between self-stretch md:self-center"
+        >
+          {fc.cta}
+        </CtaLink>
       </div>
     </section>
   );
@@ -151,9 +155,9 @@ export function Footer() {
         </div>
         <div className="flex items-start gap-6">
           {ft.links.map((l) => (
-            <a key={l.href} href={l.href} className="no-underline">
+            <Link key={l.href} href={l.href} className="no-underline">
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

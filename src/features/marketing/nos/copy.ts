@@ -5,6 +5,19 @@
  * a decisão correspondente existir.
  */
 
+/**
+ * Fake door: todo CTA da página leva à tela de interesse, onde (e só ali) se
+ * pede o e-mail. A página não mostra preço (LANDING_BRIEF §6, OD-08).
+ */
+export const INTEREST_PATH = "/nos/interesse";
+
+const CTA = {
+  header: "Ver minha análise",
+  hero: "Quero saber quando mudou",
+  offer: "Quero ver a minha análise",
+  final: "Quero saber quando mudou",
+} as const;
+
 export type HeadlineVariant = "controle" | "variacao";
 
 export const HEADLINES: Record<
@@ -24,7 +37,7 @@ export const nosCopy = {
       { href: "#privacidade", label: "Privacidade" },
       { href: "#faq", label: "Perguntas" },
     ],
-    cta: "Entrar na lista",
+    cta: CTA.header,
   },
 
   hero: {
@@ -34,7 +47,7 @@ export const nosCopy = {
     productBefore: "O ",
     productAfter:
       " analisa a história das suas conversas para mostrar como a forma de vocês se comunicarem mudou ao longo do tempo.",
-    cta: "Quero descobrir",
+    cta: CTA.hero,
     privacyBefore: "Sua conversa é privada. ",
     privacyLink: "Saiba como protegemos seus dados.",
     sourceLabel: "Comece por uma conversa do",
@@ -348,7 +361,7 @@ export const nosCopy = {
     eyebrow: "A oferta",
     titleBefore: "Veja a relação de vocês ",
     titleAccent: "pelas conversas.",
-    body: "Você começa por uma prévia gratuita. O relatório completo vem depois, com o preço informado antes de qualquer cobrança.",
+    body: "Você começa pela prévia gratuita e vê o que o Nós encontrou na sua conversa. A análise completa mostra o resto.",
     planSuffix: ": análise completa",
     items: [
       "Evolução da comunicação",
@@ -357,21 +370,14 @@ export const nosCopy = {
       "Evidências da conversa",
     ],
     pendingItems: "[Demais itens: só o que existir no produto]",
-    // Preço fora da página até a MONETIZATION.md fechar (LANDING_BRIEF §6).
-    price: "[R$ a definir]",
-    cta: "Quero ser avisado",
+    // Sem preço na página (LANDING_BRIEF §6, OD-08).
+    note: "O valor é informado antes de qualquer cobrança.",
+    cta: CTA.offer,
   },
 
   finalCta: {
-    body: "Você não precisa continuar tentando lembrar quando começou, nem comparar conversa por conversa. Veja o que a história das conversas mostra. O Vyerso abre em breve: entre na lista e avisamos.",
-    emailLabel: "Seu e-mail",
-    emailPlaceholder: "seu@email.com",
-    submit: "Quero descobrir",
-    consent:
-      "Usamos seu e-mail só para avisar da abertura. Sem spam, e você sai quando quiser.",
-    policy: "Política de privacidade",
-    // Captura de e-mail depende da OD-11; até lá o formulário fica desativado.
-    pending: "A lista de espera abre em breve.",
+    body: "Você não precisa continuar tentando lembrar quando começou, nem comparar conversa por conversa. Veja o que a história das conversas mostra.",
+    cta: CTA.final,
   },
 
   footer: {
@@ -381,7 +387,38 @@ export const nosCopy = {
     links: [
       { href: "#privacidade", label: "Privacidade" },
       { href: "#faq", label: "Perguntas" },
-      { href: "#lista", label: "Lista de espera" },
+      { href: INTEREST_PATH, label: "Tenho interesse" },
     ],
+  },
+
+  // Tela de interesse (fake door): primeira vez que pedimos o e-mail.
+  interest: {
+    back: "Voltar",
+    eyebrow: "Quase lá",
+    titleBefore: "Você quer ver a sua análise. ",
+    titleAccent: "Ainda estamos abrindo.",
+    // "Nós" destacado pelo componente.
+    bodyBefore: "Obrigado pelo interesse. Para ser transparente: o ",
+    bodyAfter: " ainda não está disponível.",
+    truth: [
+      "Nada foi cobrado de você.",
+      "Nenhuma conversa foi enviada.",
+      "Seu e-mail só é usado para avisar da abertura.",
+    ],
+    emailTitle: "Quer ser avisado quando abrir?",
+    emailLabel: "Seu e-mail",
+    emailPlaceholder: "seu@email.com",
+    submit: "Avisar quando abrir",
+    consent: "Sem spam, e você sai quando quiser.",
+    policy: "Política de privacidade",
+    questionLabel: "O que você mais quer descobrir? (opcional)",
+    options: [
+      "Quem procura quem",
+      "Quando a conversa mudou",
+      "Se foi uma fase ou um dia ruim",
+      "O que continuou igual",
+    ],
+    // Captura depende da OD-11 (onde guardar); até lá o formulário fica desativado.
+    pending: "Estamos preparando a lista. Volte em breve.",
   },
 } as const;
