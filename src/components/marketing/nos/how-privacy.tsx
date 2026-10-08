@@ -124,7 +124,7 @@ export function HowItWorks() {
           art={
             <AnalysisIllustration
               alt={h.alts.analysis}
-              periodsLabel={nosCopy.hero.card.chipPeriods}
+              periodsLabel={h.periodsLabel}
             />
           }
           title={s3.titleAfter}

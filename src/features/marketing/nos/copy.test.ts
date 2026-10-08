@@ -66,7 +66,6 @@ describe("fake door", () => {
     const placeholders = strings(sales).filter((s) => /\[[^\]]+\]/.test(s));
     expect(placeholders.sort()).toEqual([
       "Assim que a análise termina. Se você abandonar o envio, em até [X] dias.",
-      "Você & [Pessoa]",
     ]);
   });
 

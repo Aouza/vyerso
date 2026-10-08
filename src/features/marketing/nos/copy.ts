@@ -52,27 +52,11 @@ export const nosCopy = {
     privacyLink: "Saiba como protegemos seus dados.",
     sourceLabel: "Comece por uma conversa do",
     source: "WhatsApp",
-    card: {
-      kicker: "Uma perspectiva com dados",
-      badge: "Relatório de exemplo",
-      title: "Você & [Pessoa]",
-      subtitle: "38 mil mensagens. 17 meses.",
-      baseLabel: "Base de dados",
-      baseValue: "Dados suficientes",
-      findingLabel: "O que encontramos",
-      findingBefore: "Encontramos uma ",
-      findingAccent: "mudança consistente",
-      findingAfter: " na forma como vocês iniciam conversas.",
-      periods: "Encontramos 4 períodos importantes.",
-      lockedTitle: "Quando essa mudança começou",
-      lockedLabel: "Na análise completa",
-      chipPeriods: "4 períodos",
-      chipEvidence: "com evidências",
+    // Imagem do hero (public/images/hero/chat-hero-v2.webp): uma conversa lida
+    // pelo Nós e as etapas da análise. É ilustração: nada foi enviado.
+    visual: {
+      alt: "Ilustração: à esquerda, uma conversa de mensagens que se dissolve para baixo; no centro, um feixe de luz laranja; à direita, as etapas da análise (lendo mensagens, identificando padrões, mapeando períodos e gerando insights) e um aviso de que o resultado vem em breve.",
     },
-    floatTitle: "Da dúvida ao dado",
-    floatBefore: "De “será que mudou?” para ",
-    floatAccent: "“encontramos uma mudança”.",
-    bubbles: { you: "Bom dia!", person: "ok" },
   },
 
   // 02 · Espelho emocional.
@@ -284,6 +268,7 @@ export const nosCopy = {
       },
     ],
     note: "Não precisa selecionar mensagens nem explicar sua relação antes.",
+    periodsLabel: "4 períodos",
     alts: {
       export: "Um celular com uma conversa exportando um arquivo de texto",
       confirm: "O arquivo chega e você escolhe qual participante é você",
