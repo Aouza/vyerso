@@ -1,5 +1,26 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+
+/** Logo do Vyerso (laço laranja → verde-água, as duas vozes da conversa). */
+export function Logo({
+  className = "h-8 w-auto md:h-9",
+  priority = false,
+}: {
+  className?: string;
+  priority?: boolean;
+}) {
+  return (
+    <Image
+      src="/images/logo/vyerso-logo-header.png"
+      alt="Vyerso"
+      width={600}
+      height={160}
+      priority={priority}
+      className={className}
+    />
+  );
+}
 
 /** Destaque do produto: toda menção ao Nós usa este componente. */
 export function NosMark() {

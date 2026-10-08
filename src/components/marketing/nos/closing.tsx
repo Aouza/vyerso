@@ -5,6 +5,7 @@ import {
   CheckCircleIcon,
   CtaLink,
   Eyebrow,
+  Logo,
   NosMark,
 } from "./primitives";
 
@@ -130,9 +131,7 @@ export function Footer() {
     <footer className="border-t border-nos-ink/10">
       <div className="mx-auto flex max-w-[1160px] flex-wrap justify-between gap-6 px-5 pb-11 pt-3 text-[13px] text-nos-soft md:px-8 md:pb-14 md:pt-10 md:text-sm">
         <div className="flex max-w-[480px] flex-col gap-2">
-          <span className="text-xl font-bold tracking-[-0.02em] text-nos-ink md:text-[22px]">
-            {nosCopy.nav.brand}
-          </span>
+          <Logo className="h-9 w-auto self-start md:h-10" />
           <span>{ft.tagline}</span>
           <span>{ft.disclaimer}</span>
         </div>

@@ -12,7 +12,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Base absoluta dos metadados (imagem de compartilhamento). Domínio próprio:
+// defina NEXT_PUBLIC_SITE_URL. Sem ele, usa a URL do deploy na Vercel.
+function siteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  const vercel =
+    process.env.VERCEL_ENV === "production"
+      ? process.env.VERCEL_PROJECT_PRODUCTION_URL
+      : process.env.VERCEL_URL;
+  return vercel ? `https://${vercel}` : "http://localhost:3000";
+}
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl()),
   title: "Vyerso",
   description: "Sua história está nas conversas.",
 };

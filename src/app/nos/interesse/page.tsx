@@ -5,6 +5,7 @@ import {
   Accent,
   CheckCircleIcon,
   Eyebrow,
+  Logo,
   NosMark,
 } from "@/components/marketing/nos/primitives";
 import { nosCopy } from "@/features/marketing/nos/copy";
@@ -24,6 +25,9 @@ export const metadata: Metadata = {
 export default function InterestPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-[640px] flex-col gap-8 px-5 py-8 md:py-16">
+      <Link href="/nos" aria-label="Vyerso" className="self-start">
+        <Logo />
+      </Link>
       <Link
         href="/nos"
         className="self-start text-sm font-semibold text-nos-muted no-underline"

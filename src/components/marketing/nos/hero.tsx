@@ -6,7 +6,7 @@ import {
   type HeadlineVariant,
 } from "@/features/marketing/nos/copy";
 import { Avatar, FloatingBubble, TypingDots } from "./chat";
-import { Accent, CtaLink, LockIcon, NosMark } from "./primitives";
+import { Accent, CtaLink, LockIcon, Logo, NosMark } from "./primitives";
 
 const c = nosCopy.hero;
 
@@ -14,12 +14,13 @@ export function Header() {
   return (
     <header className="mx-auto max-w-[1160px] px-4 py-3.5 md:px-8 md:py-5">
       <div className="flex items-center justify-between gap-6 rounded-full bg-white py-1.5 pl-5 pr-1.5 shadow-[0_10px_30px_rgba(20,23,31,0.07)] md:py-2.5 md:pl-7 md:pr-3">
-        <a
+        <Link
           href="#topo"
-          className="text-xl font-bold tracking-[-0.02em] no-underline md:text-[22px]"
+          aria-label={nosCopy.nav.brand}
+          className="inline-flex min-h-11 items-center no-underline"
         >
-          {nosCopy.nav.brand}
-        </a>
+          <Logo priority />
+        </Link>
         <nav
           aria-label="Principal"
           className="hidden items-center gap-7 text-[15px] font-medium text-nos-muted md:flex"

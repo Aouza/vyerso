@@ -18,6 +18,14 @@ export const metadata: Metadata = {
   title: "Nós: veja como a conversa de vocês mudou ao longo do tempo",
   description:
     "O Nós analisa a história das suas conversas e mostra como a forma de vocês se comunicarem mudou. Sem nota de compatibilidade, com evidências.",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Vyerso",
+    title: "Algo mudou entre vocês? Veja como a conversa evoluiu",
+    description:
+      "O Nós analisa a história das suas conversas e mostra como a forma de vocês se comunicarem mudou ao longo do tempo.",
+  },
 };
 
 export default function NosLayout({ children }: LayoutProps<"/nos">) {
